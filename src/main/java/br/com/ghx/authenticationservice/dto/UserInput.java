@@ -11,6 +11,5 @@ public record UserInput(
         String username,
         @NotBlank
         String password,
-        @NotNull
         Boolean isAdmin) {
 }
