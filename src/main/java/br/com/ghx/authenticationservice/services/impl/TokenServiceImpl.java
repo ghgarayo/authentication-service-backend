@@ -28,6 +28,7 @@ public class TokenServiceImpl implements TokenService {
             return JWT.create()
                     .withIssuer(TokenServiceConstants.AUTHENTICATION_SERVICE)
                     .withSubject(user.getUsername())
+                    .withClaim("name", user.getName())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
@@ -40,7 +41,7 @@ public class TokenServiceImpl implements TokenService {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("Authentication Service")
+                    .withIssuer(TokenServiceConstants.AUTHENTICATION_SERVICE)
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
